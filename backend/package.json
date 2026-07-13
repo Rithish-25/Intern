@@ -1,0 +1,27 @@
+{
+  "name": "employee-management-backend",
+  "version": "1.0.0",
+  "description": "Employee Management System Backend",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "firebase-admin": "^12.0.0",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.2.1",
+    "morgan": "^1.10.0",
+    "winston": "^3.12.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "private": true
+}
