@@ -21,6 +21,7 @@ const signupSchema = z.object({
 const Signup = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -176,13 +177,20 @@ const Signup = () => {
                 <Lock className="w-5 h-5" />
               </span>
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showConfirmPassword ? 'text' : 'password'}
                 placeholder="••••••••"
                 className={`w-full pl-10 pr-10 py-3 rounded-xl border bg-white dark:bg-slate-900 border-slate-250 dark:border-slate-800 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all ${
                   errors.confirmPassword ? 'border-rose-500 focus:border-rose-500 focus:ring-rose-500/10' : ''
                 }`}
                 {...register('confirmPassword')}
               />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-655"
+              >
+                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
             </div>
             {errors.confirmPassword && (
               <p className="flex items-center gap-1 mt-1 text-xs text-rose-500">

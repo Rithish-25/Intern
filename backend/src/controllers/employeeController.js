@@ -8,7 +8,7 @@ exports.getEmployees = async (req, res, next) => {
   try {
     const { page = 1, limit = 10, search = '', department = '', status = '', sortBy = 'createdAt', sortOrder = 'desc' } = req.query;
 
-    const query = {};
+    const query = { createdBy: req.user.uid };
 
     // Apply department filter
     if (department) {
@@ -68,7 +68,7 @@ exports.getEmployees = async (req, res, next) => {
 // @access  Private
 exports.getEmployeeById = async (req, res, next) => {
   try {
-    const employee = await Employee.findById(req.params.id);
+    const employee = await Employee.findOne({ _id: req.params.id, createdBy: req.user.uid });
 
     if (!employee) {
       return res.status(404).json({
@@ -116,7 +116,7 @@ exports.createEmployee = async (req, res, next) => {
       });
     }
 
-    const newEmployee = new Employee(req.body);
+    const newEmployee = new Employee({ ...req.body, createdBy: req.user.uid });
     const savedEmployee = await newEmployee.save();
 
     return res.status(201).json({
@@ -157,8 +157,8 @@ exports.updateEmployee = async (req, res, next) => {
       });
     }
 
-    const updatedEmployee = await Employee.findByIdAndUpdate(
-      req.params.id,
+    const updatedEmployee = await Employee.findOneAndUpdate(
+      { _id: req.params.id, createdBy: req.user.uid },
       { $set: req.body },
       { new: true, runValidators: true }
     );
@@ -186,7 +186,7 @@ exports.updateEmployee = async (req, res, next) => {
 // @access  Private
 exports.deleteEmployee = async (req, res, next) => {
   try {
-    const deletedEmployee = await Employee.findByIdAndDelete(req.params.id);
+    const deletedEmployee = await Employee.findOneAndDelete({ _id: req.params.id, createdBy: req.user.uid });
 
     if (!deletedEmployee) {
       return res.status(404).json({

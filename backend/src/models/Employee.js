@@ -40,6 +40,10 @@ const employeeSchema = new mongoose.Schema(
       required: [true, 'Status is required'],
       enum: ['Active', 'Inactive'],
       default: 'Active'
+    },
+    createdBy: {
+      type: String,
+      index: true
     }
   },
   {
