@@ -19,7 +19,7 @@ const employeeSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Mobile number is required'],
       trim: true,
-      match: [/^\d{10}$/, 'Mobile number must be exactly 10 digits']
+      match: [/^[1-9]\d{9}$/, 'Mobile number must be exactly 10 digits and cannot start with 0']
     },
     department: {
       type: String,
