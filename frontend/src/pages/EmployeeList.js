@@ -84,6 +84,25 @@ const EmployeeList = () => {
     }));
   };
 
+  const handleSortChange = (value) => {
+    if (value === 'default') {
+      dispatch(setFilters({ sortBy: 'createdAt', sortOrder: 'desc' }));
+    } else if (value === 'joiningDate-asc') {
+      dispatch(setFilters({ sortBy: 'joiningDate', sortOrder: 'asc' }));
+    } else if (value === 'joiningDate-desc') {
+      dispatch(setFilters({ sortBy: 'joiningDate', sortOrder: 'desc' }));
+    } else if (value === 'status') {
+      dispatch(setFilters({ sortBy: 'status', sortOrder: 'asc' }));
+    }
+  };
+
+  const getSortValue = () => {
+    if (filters.sortBy === 'createdAt') return 'default';
+    if (filters.sortBy === 'status') return 'status';
+    if (filters.sortBy === 'joiningDate' && filters.sortOrder === 'asc') return 'joiningDate-asc';
+    return 'joiningDate-desc';
+  };
+
   const handleOpenDelete = (id) => {
     setDeleteId(id);
     setIsDeleteModalOpen(true);
@@ -124,7 +143,7 @@ const EmployeeList = () => {
       header: () => (
         <button 
           onClick={() => handleSort('fullName')} 
-          className="flex items-center gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold"
+          className="flex items-center gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold whitespace-nowrap"
         >
           Full Name {getSortIcon('fullName')}
         </button>
@@ -136,7 +155,7 @@ const EmployeeList = () => {
       header: () => (
         <button 
           onClick={() => handleSort('email')} 
-          className="flex items-center gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold"
+          className="flex items-center gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold whitespace-nowrap"
         >
           Email {getSortIcon('email')}
         </button>
@@ -148,7 +167,7 @@ const EmployeeList = () => {
       header: () => (
         <button 
           onClick={() => handleSort('department')} 
-          className="flex items-center gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold"
+          className="flex items-center gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold whitespace-nowrap"
         >
           Department {getSortIcon('department')}
         </button>
@@ -160,7 +179,7 @@ const EmployeeList = () => {
       header: () => (
         <button 
           onClick={() => handleSort('designation')} 
-          className="flex items-center gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold"
+          className="flex items-center gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold whitespace-nowrap"
         >
           Designation {getSortIcon('designation')}
         </button>
@@ -172,19 +191,19 @@ const EmployeeList = () => {
       header: () => (
         <button 
           onClick={() => handleSort('joiningDate')} 
-          className="flex items-center gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold"
+          className="flex items-center gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold whitespace-nowrap"
         >
           Joining Date {getSortIcon('joiningDate')}
         </button>
       ),
-      cell: (info) => <span className="text-slate-600 dark:text-slate-400">{format(new Date(info.getValue()), 'MMM dd, yyyy')}</span>
+      cell: (info) => <span className="text-slate-600 dark:text-slate-400 whitespace-nowrap">{format(new Date(info.getValue()), 'MMM dd, yyyy')}</span>
     },
     {
       accessorKey: 'status',
       header: () => (
         <button 
           onClick={() => handleSort('status')} 
-          className="flex items-center justify-center w-full gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold"
+          className="flex items-center justify-center w-full gap-1 hover:text-slate-800 dark:hover:text-slate-100 font-semibold whitespace-nowrap"
         >
           Status {getSortIcon('status')}
         </button>
@@ -206,11 +225,11 @@ const EmployeeList = () => {
     },
     {
       id: 'actions',
-      header: () => <span className="flex justify-end pr-4">Actions</span>,
+      header: () => <span className="flex justify-center">Actions</span>,
       cell: (info) => {
         const row = info.row.original;
         return (
-          <div className="flex justify-end items-center gap-1.5 pr-2">
+          <div className="flex justify-center items-center gap-1.5">
             <button
               onClick={() => navigate(`/employees/${row._id}`)}
               className="p-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
@@ -314,6 +333,23 @@ const EmployeeList = () => {
             </select>
             <span className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-450 pointer-events-none">
               <Filter className="w-3.5 h-3.5" />
+            </span>
+          </div>
+
+          {/* Sort Option Dropdown */}
+          <div className="relative">
+            <select
+              value={getSortValue()}
+              onChange={(e) => handleSortChange(e.target.value)}
+              className="appearance-none pl-3 pr-8 py-2.5 rounded-xl border bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all cursor-pointer min-w-[140px]"
+            >
+              <option value="default">Sort: Default</option>
+              <option value="joiningDate-asc">Sort: Asc</option>
+              <option value="joiningDate-desc">Sort: Des</option>
+              <option value="status">Sort: Status</option>
+            </select>
+            <span className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-450 pointer-events-none">
+              <ArrowUpDown className="w-3.5 h-3.5" />
             </span>
           </div>
 

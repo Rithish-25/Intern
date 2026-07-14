@@ -1,13 +1,12 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, UserPlus, User, X } from 'lucide-react';
+import { LayoutDashboard, UserPlus, User, X } from 'lucide-react';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
 
   const navLinks = [
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
-    { name: 'Employee List', path: '/employees', icon: Users },
     { name: 'Add Employee', path: '/employees/add', icon: UserPlus },
     { name: 'Profile', path: '/profile', icon: User }
   ];

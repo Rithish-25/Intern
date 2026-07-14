@@ -240,7 +240,7 @@ const Dashboard = () => {
                     <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{emp.department}</td>
                     <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{emp.designation}</td>
                     <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1.5 whitespace-nowrap">
                         <Calendar className="w-3.5 h-3.5 text-slate-400" />
                         {format(new Date(emp.joiningDate), 'MMM dd, yyyy')}
                       </div>
