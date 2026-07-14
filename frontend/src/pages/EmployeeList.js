@@ -21,7 +21,7 @@ import {
   ChevronRight, 
   Plus, 
   Eye, 
-  Edit3, 
+  Pencil, 
   Trash2, 
   ArrowUpDown,
   ArrowUp,
@@ -242,7 +242,7 @@ const EmployeeList = () => {
               className="p-2 text-slate-550 hover:text-slate-750 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
               title="Edit Profile"
             >
-              <Edit3 className="w-4.5 h-4.5" />
+              <Pencil className="w-4.5 h-4.5" />
             </button>
             <button
               onClick={() => handleOpenDelete(row._id)}

@@ -5,7 +5,7 @@ import { PageLoader } from '../components/Loader';
 import { ErrorState } from '../components/ErrorState';
 import { 
   ArrowLeft, 
-  Edit3, 
+  Pencil, 
   Trash2, 
   Calendar, 
   Phone, 
@@ -106,7 +106,7 @@ const EmployeeDetails = () => {
               to={`/employees/${id}/edit`}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 text-sm font-semibold text-slate-700 dark:text-slate-350 transition-colors"
             >
-              <Edit3 className="w-4 h-4" />
+              <Pencil className="w-4 h-4" />
               Edit Details
             </Link>
             <button
