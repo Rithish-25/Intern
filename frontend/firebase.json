@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "ems-portal",
     "public": "build",
     "ignore": [
       "firebase.json",

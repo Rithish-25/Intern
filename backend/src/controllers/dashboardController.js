@@ -6,13 +6,13 @@ const Employee = require('../models/Employee');
 exports.getDashboardStats = async (req, res, next) => {
   try {
     // Calculate total, active, and inactive counts
-    const totalEmployees = await Employee.countDocuments({ createdBy: { $in: [req.user.uid, null] } });
-    const activeEmployees = await Employee.countDocuments({ status: 'Active', createdBy: { $in: [req.user.uid, null] } });
-    const inactiveEmployees = await Employee.countDocuments({ status: 'Inactive', createdBy: { $in: [req.user.uid, null] } });
+    const totalEmployees = await Employee.countDocuments({ createdBy: req.user.uid });
+    const activeEmployees = await Employee.countDocuments({ status: 'Active', createdBy: req.user.uid });
+    const inactiveEmployees = await Employee.countDocuments({ status: 'Inactive', createdBy: req.user.uid });
 
     // Aggregate employees count by department
     const departmentStats = await Employee.aggregate([
-      { $match: { createdBy: { $in: [req.user.uid, null] } } },
+      { $match: { createdBy: req.user.uid } },
       {
         $group: {
           _id: '$department',
@@ -31,7 +31,7 @@ exports.getDashboardStats = async (req, res, next) => {
 
     // Aggregate employees count by status
     const statusStats = await Employee.aggregate([
-      { $match: { createdBy: { $in: [req.user.uid, null] } } },
+      { $match: { createdBy: req.user.uid } },
       {
         $group: {
           _id: '$status',
@@ -48,7 +48,7 @@ exports.getDashboardStats = async (req, res, next) => {
     ]);
 
     // Fetch the 5 most recently added employees
-    const recentEmployees = await Employee.find({ createdBy: { $in: [req.user.uid, null] } })
+    const recentEmployees = await Employee.find({ createdBy: req.user.uid })
       .sort({ createdAt: -1 })
       .limit(5);
 
