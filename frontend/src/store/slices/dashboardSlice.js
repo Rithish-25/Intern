@@ -35,6 +35,13 @@ const dashboardSlice = createSlice({
   reducers: {
     clearDashboardError: (state) => {
       state.error = null;
+    },
+    resetDashboardState: (state) => {
+      state.cards = initialState.cards;
+      state.charts = initialState.charts;
+      state.recentEmployees = [];
+      state.loading = false;
+      state.error = null;
     }
   },
   extraReducers: (builder) => {
@@ -56,5 +63,5 @@ const dashboardSlice = createSlice({
   }
 });
 
-export const { clearDashboardError } = dashboardSlice.actions;
+export const { clearDashboardError, resetDashboardState } = dashboardSlice.actions;
 export default dashboardSlice.reducer;

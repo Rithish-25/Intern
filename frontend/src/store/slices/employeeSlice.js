@@ -93,6 +93,14 @@ const employeeSlice = createSlice({
     clearStatus: (state) => {
       state.error = null;
       state.successMsg = null;
+    },
+    resetEmployeeState: (state) => {
+      state.list = [];
+      state.pagination = initialState.pagination;
+      state.filters = initialState.filters;
+      state.loading = false;
+      state.error = null;
+      state.successMsg = null;
     }
   },
   extraReducers: (builder) => {
@@ -156,5 +164,5 @@ const employeeSlice = createSlice({
   }
 });
 
-export const { setFilters, setPageNum, resetFilters, clearStatus } = employeeSlice.actions;
+export const { setFilters, setPageNum, resetFilters, clearStatus, resetEmployeeState } = employeeSlice.actions;
 export default employeeSlice.reducer;

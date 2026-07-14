@@ -4,6 +4,8 @@ import { Sun, Moon, LogOut, Menu, User, Shield } from 'lucide-react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { clearAuth } from '../store/slices/authSlice';
+import { resetEmployeeState } from '../store/slices/employeeSlice';
+import { resetDashboardState } from '../store/slices/dashboardSlice';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
@@ -31,6 +33,8 @@ const Navbar = ({ onToggleSidebar }) => {
     try {
       await signOut(auth);
       dispatch(clearAuth());
+      dispatch(resetEmployeeState());
+      dispatch(resetDashboardState());
       toast.success('Logged out successfully.');
     } catch (error) {
       toast.error('Failed to log out: ' + error.message);
